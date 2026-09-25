@@ -134,8 +134,8 @@ sweet spot. State ages as adults write them ("in her twenties", "a man in his th
 
 ```
 Tag: woman, 30s, reading on a window seat, rainy afternoon, soft window light, 35mm film grain
-Casual: woman curled up reading by the window on a rainy day, cozy, grey light
-Photography: Candid 35mm photograph of a woman in her thirties reading on a window seat, rain on the glass, soft grey afternoon light, shallow depth of field, natural skin texture.
+Casual: woman curled up reading by the window on a rainy day, cozy, gray light
+Photography: Candid 35mm photograph of a woman in her thirties reading on a window seat, rain on the glass, soft gray afternoon light, shallow depth of field, natural skin texture.
 Storyteller: A rainy afternoon in a small apartment. A woman in her thirties has lost herself in a paperback on the window seat, knees up, a mug of tea going cold beside her while the rain streaks the glass.
 ```
 
