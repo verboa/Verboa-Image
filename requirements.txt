@@ -1,0 +1,6 @@
+# for inference.py. The minimums are the versions this release was built and tested with; later releases should work.
+torch
+diffusers>=0.40.0
+transformers>=5.16
+accelerate
+safetensors

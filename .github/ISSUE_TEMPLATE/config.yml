@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Misuse or a safety problem with the weights
+    url: https://github.com/verboa/Verboa-Image/blob/main/SECURITY.md
+    about: Report it privately to abuse@verboa.io, not as a public issue.
+  - name: Questions about the model
+    url: https://huggingface.co/verboa/Verboa-Image-1.0/discussions
+    about: The Community tab on Hugging Face, or email contact@verboa.io.
