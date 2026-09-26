@@ -42,7 +42,7 @@ Every file is the same model at a different precision:
 
 ## Quick start
 
-The repos are gated: open the model page while logged in to Hugging Face and accept the terms, then run
+The repos are gated so open the model page while logged in to Hugging Face and accept the terms, then run
 `hf auth login` on the machine that downloads.
 
 ### ComfyUI
@@ -77,7 +77,7 @@ has three modes: **Let Us Choose** (nine fields such as people, age, place and l
 3. Load [`workflows/verboa-image-1.0-writer.json`](workflows/verboa-image-1.0-writer.json) (NVIDIA) or
    [`workflows/verboa-image-1.0-mac-writer.json`](workflows/verboa-image-1.0-mac-writer.json) (Mac).
 
-Each run writes a new prompt and renders it. It needs ComfyUI 0.19.0 or newer.
+Each run writes a new prompt and renders it. It needs ComfyUI 0.19.0 or newer. The below prompts are SFW because GitHub wouldn't allow NSFW, go to HF if you want to see that.
 
 ### diffusers
 
