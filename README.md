@@ -12,8 +12,8 @@ Verboa Image 1.0 is an 8B photorealistic text-to-image model for adults. It is a
 captioned images, with [ERNIE-Image-Turbo](https://huggingface.co/baidu/ERNIE-Image-Turbo)'s few-step ability
 transplanted onto it. **It finishes an image in 8 steps.**
 
-This repository holds the small files: the ComfyUI workflows, an inference script, the license and how to report a
-problem. The weights, the full model card, the sample images and the safety report are on
+This repository holds the small files: the ComfyUI workflows, the Prompt Writer's ComfyUI node, an inference script,
+the license and how to report a problem. The weights, the full model card, the sample images and the safety report are on
 [Hugging Face](https://huggingface.co/verboa/Verboa-Image-1.0).
 
 > **18+ only.** The model generates explicit adult content on request. This page contains none; the model card on
@@ -22,6 +22,7 @@ problem. The weights, the full model card, the sample images and the safety repo
 ## News
 
 - **September 2026:** Verboa Image 1.0 released, in every format from fp32 to 4-bit.
+- **September 2026:** [Verboa Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer), a small model that writes prompts for Verboa Image in ComfyUI.
 
 ## Models
 
@@ -31,6 +32,7 @@ problem. The weights, the full model card, the sample images and the safety repo
 | [verboa/Verboa-Image-1.0-GGUF](https://huggingface.co/verboa/Verboa-Image-1.0-GGUF) | 12 GGUF files, F16 down to Q4_0 | ComfyUI with [ComfyUI-GGUF](https://github.com/city96/ComfyUI-GGUF) |
 | [verboa/Verboa-Image-1.0-mflux-8bit](https://huggingface.co/verboa/Verboa-Image-1.0-mflux-8bit), [-6bit](https://huggingface.co/verboa/Verboa-Image-1.0-mflux-6bit), [-4bit](https://huggingface.co/verboa/Verboa-Image-1.0-mflux-4bit) | MLX weights | [mflux](https://github.com/filipstrand/mflux) on Apple Silicon |
 | [verboa/Verboa-Image-1.0-nf4](https://huggingface.co/verboa/Verboa-Image-1.0-nf4) | NF4 transformer with the rest of the pipeline | diffusers with bitsandbytes |
+| [verboa/Verboa-Prompt-Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer) | the Prompt Writer: a 2B language model that writes prompts, in fp8 and bf16 | ComfyUI, with the node in [`ComfyUI-Verboa/`](ComfyUI-Verboa/__init__.py) |
 
 Every file is the same model at a different precision:
 
@@ -45,7 +47,7 @@ The repos are gated: open the model page while logged in to Hugging Face and acc
 
 ### ComfyUI
 
-ERNIE-Image is supported natively, so no custom nodes are needed. Put the files in place and load
+ERNIE-Image is supported natively, so the image model needs no custom nodes. Put the files in place and load
 [`workflows/verboa-image-1.0.json`](workflows/verboa-image-1.0.json) (NVIDIA) or
 [`workflows/verboa-image-1.0-mac.json`](workflows/verboa-image-1.0-mac.json) (Apple Silicon):
 
@@ -62,6 +64,20 @@ ConditioningZeroOut. With both, ComfyUI and diffusers render the same picture.
 For the GGUF files, install ComfyUI-GGUF, put the file in `models/diffusion_models/`, and load
 [`workflows/verboa-image-1.0-gguf.json`](workflows/verboa-image-1.0-gguf.json) (it uses the **Unet Loader (GGUF)**
 node).
+
+### The Prompt Writer (ComfyUI)
+
+[Verboa Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer) writes the prompt for you. Its node, in [`ComfyUI-Verboa/`](ComfyUI-Verboa/__init__.py),
+has three modes: **Let Us Choose** (nine fields such as people, age, place and length, each one optional),
+**Surprise Me** (it picks for you) and **Write My Own** (your own prompt, through the same workflow).
+
+1. Copy the `ComfyUI-Verboa` folder into `ComfyUI/custom_nodes/` and restart ComfyUI.
+2. Put `verboa-prompt-writer-fp8.safetensors` (NVIDIA) or `verboa-prompt-writer-bf16.safetensors` (Mac), from
+   [Hugging Face](https://huggingface.co/verboa/Verboa-Prompt-Writer), in `models/text_encoders/`.
+3. Load [`workflows/verboa-image-1.0-writer.json`](workflows/verboa-image-1.0-writer.json) (NVIDIA) or
+   [`workflows/verboa-image-1.0-mac-writer.json`](workflows/verboa-image-1.0-mac-writer.json) (Mac).
+
+Each run writes a new prompt and renders it. It needs ComfyUI 0.19.0 or newer.
 
 ### diffusers
 
@@ -130,7 +146,8 @@ For RTX 50 cards with little memory, NVFP4. For older NVIDIA cards, int8 or GGUF
 Write what you want the way you would say it. Every training caption was written as the prompt a particular person
 would type: two words to a long paragraph, slang to clinical, casual to formal. A sentence of 15 to 40 words is the
 sweet spot. State ages as adults write them ("in her twenties", "a man in his thirties"), and negations work inline
-("no tattoos"). Tag lists from other model families ("masterpiece, best quality") were not trained.
+("no tattoos"). Tag lists from other model families ("masterpiece, best quality") were not trained. Or let the
+[Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer) write it.
 
 ```
 Tag: woman, 30s, reading on a window seat, rainy afternoon, soft window light, 35mm film grain
