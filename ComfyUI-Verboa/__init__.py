@@ -4,7 +4,7 @@ One node, "Verboa Prompt Writer" (category Verboa). Connect a Load CLIP node hol
 (verboa-prompt-writer-fp8.safetensors on NVIDIA, verboa-prompt-writer-bf16.safetensors on a Mac) and send its
 `prompt` output to a CLIP Text Encode node's text input. Three modes:
 
-  Let Us Choose  nine dropdowns: people, age, place, level, ethnicity, body, camera, voice, length. Leave any of them
+  Let Me Choose  nine dropdowns: people, age, place, level, ethnicity, body, camera, voice, length. Leave any of them
                  on "any" and the writer invents it.
   Surprise Me    no dropdowns. Every run spins people, age, place, level, voice and length at random; the writer
                  invents the rest.
@@ -51,7 +51,7 @@ SPUN = ["people", "age", "place", "level", "voice", "length"]
 SAMPLING = {"temperature": 1.0, "top_k": 0, "top_p": 1.0, "min_p": 0.05, "repetition_penalty": 1.05}
 MAX_LENGTH = 768
 TRIES = 5
-LET_US_CHOOSE, SURPRISE_ME, WRITE_MY_OWN = "Let Us Choose", "Surprise Me", "Write My Own"
+LET_ME_CHOOSE, SURPRISE_ME, WRITE_MY_OWN = "Let Me Choose", "Surprise Me", "Write My Own"
 
 # Words that put someone under 18: words for adolescents and children, school levels below college, ages under 18.
 # The same list as scripts/writer/common.py MINOR (tests/test_writer_node.py checks they match). Written "t[e]en" so the
@@ -96,13 +96,13 @@ class VerboaPromptWriter(io.ComfyNode):
             node_id="VerboaPromptWriter",
             display_name="Verboa Prompt Writer",
             category="Verboa",
-            description="Writes a prompt for Verboa Image 1.0. Let Us Choose: set the fields you care about. "
+            description="Writes a prompt for Verboa Image 1.0. Let Me Choose: set the fields you care about. "
                         "Surprise Me: every run spins them at random. Write My Own: type your own prompt instead.",
             inputs=[
                 io.Clip.Input("clip", lazy=True,
                               tooltip="verboa-prompt-writer-fp8 (NVIDIA) or -bf16 (Mac), from a Load CLIP node"),
                 io.DynamicCombo.Input("mode", display_name="Mode", options=[
-                    io.DynamicCombo.Option(LET_US_CHOOSE, choose),
+                    io.DynamicCombo.Option(LET_ME_CHOOSE, choose),
                     io.DynamicCombo.Option(SURPRISE_ME, []),
                     io.DynamicCombo.Option(WRITE_MY_OWN, [
                         io.String.Input("prompt", multiline=True, dynamic_prompts=True, default="")]),

@@ -760,7 +760,7 @@
     }
    ],
    "widgets_values": [
-    "Let Us Choose",
+    "Let Me Choose",
     "any",
     "any",
     "any",
@@ -836,7 +836,7 @@
    "outputs": [],
    "properties": {},
    "widgets_values": [
-    "## Verboa Prompt Writer\n\nPick a **Mode** on the Verboa Prompt Writer node:\n\n- **Let Us Choose**: set the fields you care about and leave the rest on `any`; the writer invents what isn't given.\n- **Surprise Me**: no fields; every run spins people, age, place, level, voice, length at random.\n- **Write My Own**: type your own prompt. The writer isn't loaded.\n\nEvery Run writes a new prompt and renders it (the node's seed changes after every run; set it to fixed to keep a prompt). The prompt that was written shows in the preview.\n\n**Setup:** copy the `ComfyUI-Verboa` folder into `ComfyUI/custom_nodes/` and restart ComfyUI. Put `verboa-prompt-writer-fp8.safetensors` (NVIDIA) or `verboa-prompt-writer-bf16.safetensors` (Mac) in `ComfyUI/models/text_encoders/`. Needs ComfyUI 0.19.0 or newer."
+    "## Verboa Prompt Writer\n\nPick a **Mode** on the Verboa Prompt Writer node:\n\n- **Let Me Choose**: set the fields you care about and leave the rest on `any`; the writer invents what isn't given.\n- **Surprise Me**: no fields; every run spins people, age, place, level, voice, length at random.\n- **Write My Own**: type your own prompt. The writer isn't loaded.\n\nEvery Run writes a new prompt and renders it (the node's seed changes after every run; set it to fixed to keep a prompt). The prompt that was written shows in the preview.\n\n**Setup:** copy the `ComfyUI-Verboa` folder into `ComfyUI/custom_nodes/` and restart ComfyUI. Put `verboa-prompt-writer-fp8.safetensors` (NVIDIA) or `verboa-prompt-writer-bf16.safetensors` (Mac) in `ComfyUI/models/text_encoders/`. Needs ComfyUI 0.19.0 or newer."
    ],
    "title": "Prompt Writer: how to use it"
   }

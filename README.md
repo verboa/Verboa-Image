@@ -68,7 +68,7 @@ node).
 ### The Prompt Writer (ComfyUI)
 
 [Verboa Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer) writes the prompt for you. Its node, in [`ComfyUI-Verboa/`](ComfyUI-Verboa/__init__.py),
-has three modes: **Let Us Choose** (nine fields such as people, age, place and length, each one optional),
+has three modes: **Let Me Choose** (nine fields such as people, age, place and length, each one optional),
 **Surprise Me** (it picks for you) and **Write My Own** (your own prompt, through the same workflow).
 
 1. Copy the `ComfyUI-Verboa` folder into `ComfyUI/custom_nodes/` and restart ComfyUI.
