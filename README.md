@@ -71,7 +71,8 @@ node).
 has three modes: **Let Me Choose** (nine fields such as people, age, place and length, each one optional),
 **Surprise Me** (it picks for you) and **Write My Own** (your own prompt, through the same workflow).
 
-1. Copy the `ComfyUI-Verboa` folder into `ComfyUI/custom_nodes/` and restart ComfyUI.
+1. Download [ComfyUI-Verboa.zip](https://github.com/verboa/Verboa-Image/releases/latest/download/ComfyUI-Verboa.zip) and unzip it into `ComfyUI/custom_nodes/`, so you get
+   `custom_nodes/ComfyUI-Verboa/__init__.py`. Restart ComfyUI.
 2. Put `verboa-prompt-writer-fp8.safetensors` (NVIDIA) or `verboa-prompt-writer-bf16.safetensors` (Mac), from
    [Hugging Face](https://huggingface.co/verboa/Verboa-Prompt-Writer), in `models/text_encoders/`.
 3. Load [`workflows/verboa-image-1.0-writer.json`](workflows/verboa-image-1.0-writer.json) (NVIDIA) or
