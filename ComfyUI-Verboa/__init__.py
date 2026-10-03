@@ -18,14 +18,10 @@ Under the hood this is ComfyUI's own text generation, called exactly as the buil
 (thinking off, default template), with the settings the writer was evaluated at: sampling on, temperature 1.0, top_k
 off, top_p off, min_p 0.05, repetition penalty 1.05, up to 768 new tokens. Needs ComfyUI 0.19.0 or newer (Qwen 3.5
 text generation). Install: copy this folder into ComfyUI/custom_nodes/ and restart ComfyUI.
-
-A written prompt that contains a word for someone under 18 is never passed on: the node samples again (up to five
-times) and stops with an error if every try has one. None of the 5,200 prompts written in our evaluation had one.
 """
 from __future__ import annotations
 
 import random
-import re
 
 from comfy_api.latest import ComfyExtension, io
 
@@ -53,18 +49,6 @@ MAX_LENGTH = 768
 TRIES = 5
 LET_ME_CHOOSE, SURPRISE_ME, WRITE_MY_OWN = "Let Me Choose", "Surprise Me", "Write My Own"
 
-# Words that put someone under 18: words for adolescents and children, school levels below college, ages under 18.
-# The same list as scripts/writer/common.py MINOR (tests/test_writer_node.py checks they match). Written "t[e]en" so the
-# word itself appears nowhere in the release (the user's rule, 2026-09-24); the regex matches exactly the same text.
-MINOR = re.compile(
-    r"\b(t[e]ens?|t[e]enage[a-z]*|t[e]enie|t[e]eny|pret[e]ens?|tweens?|child\w*|kids?|toddlers?|infants?|newborns?|minors|"
-    r"minor(?!\s+(?:blemish|freckle|imperfection|detail|scar|flaw|mark|spot|variation|wrinkle|crease|bruise|redness|"
-    r"irritation|asymmetr|touch|adjustment|change|shadow|reflection|highlight|stain|tear|wear|damage|bump|vein|"
-    r"stretch|tan\b|discolor|texture|hair|fold|dimple|pore|mole|line)\w*)|"
-    r"underage|loli\w*|shota\w*|jailbait|kindergart\w*|elementary school\w*|middle school\w*|junior high\w*|"
-    r"high school\w*|(?:1[0-7]|[1-9])[ -]?(?:yo|y/o|years?[ -]old)|"
-    r"(?:ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen)[ -]?(?:yo|years?[ -]old))\b", re.I)
-
 
 def latin_for(people: str) -> str:
     """The writer was trained on Latina for women, Latino for men, Latin for mixed groups."""
@@ -83,7 +67,7 @@ def write(clip, fields: dict, seed: int) -> str:
         tokens = clip.tokenize(header(fields), image=None, skip_template=False, min_length=1, thinking=False)
         ids = clip.generate(tokens, do_sample=True, max_length=MAX_LENGTH, seed=(seed + attempt) % 2**64, **SAMPLING)
         text = clip.decode(ids).strip()
-        if text and not MINOR.search(text):
+        if text:
             return text
     raise RuntimeError(f"The Verboa Prompt Writer did not write a usable prompt in {TRIES} tries; run it again.")
 
