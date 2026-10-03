@@ -1,0 +1,285 @@
+{
+ "id": "verboa-video-i2v",
+ "revision": 0,
+ "last_node_id": 6,
+ "last_link_id": 4,
+ "nodes": [
+  {
+   "id": 6,
+   "type": "MarkdownNote",
+   "pos": [
+    -560,
+    -230
+   ],
+   "size": [
+    1240,
+    150
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "MarkdownNote"
+   },
+   "widgets_values": [
+    "## Verboa Video: image to video\n1. Choose your first frame in **Load First Frame** (a camera-facing frame with the whole scene in view animates best).\n2. Say what moves in the **prompt** of Verboa Video (who, how, the camera, the sounds).\n3. Press Run. The mp4 lands in `output/video`, the strip below shows five frames so you can check the face stays the same before you post.\nNeeds the five LTX-2.5 files listed in the README (open *Advanced* on the node to pick them)."
+   ]
+  },
+  {
+   "id": 1,
+   "type": "LoadImage",
+   "pos": [
+    -560,
+    120
+   ],
+   "size": [
+    330,
+    430
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": null,
+     "slot_index": 1
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "example.png",
+    "image"
+   ],
+   "title": "Load First Frame"
+  },
+  {
+   "id": 2,
+   "type": "VerboaVideoI2V",
+   "pos": [
+    -180,
+    120
+   ],
+   "size": [
+    440,
+    600
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "image",
+     "type": "IMAGE",
+     "link": 1
+    }
+   ],
+   "outputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "links": [
+      2
+     ],
+     "slot_index": 0
+    },
+    {
+     "name": "frames",
+     "type": "IMAGE",
+     "links": [
+      3
+     ],
+     "slot_index": 1
+    },
+    {
+     "name": "settings",
+     "type": "STRING",
+     "links": null,
+     "slot_index": 2
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VerboaVideoI2V"
+   },
+   "widgets_values": [
+    "She slowly turns toward the camera with a relaxed smile, shifts her weight to one hip and runs one hand through her hair. She holds eye contact and breathes slowly. The camera makes a slow, smooth push-in with a slight handheld sway. Natural ambient sound. No text, no black frames.",
+    6,
+    0,
+    "randomize",
+    "match image",
+    0.9,
+    24,
+    "",
+    "ltx-2.5-22b-distilled-transformer-comfy-int8-convrot.safetensors",
+    "gemma4-12b-with-proj-ltx-2.5-comfy-int8-convrot.safetensors",
+    "ltx-2.5-video-vae-bf16.safetensors",
+    "ltx-2.5-audio-vae-bf16.safetensors",
+    "ltx-2.5-latent-spatial-upscaler-x2-bf16-1.0.safetensors",
+    0.7,
+    18,
+    1.0,
+    1.0,
+    "1.0, 0.99375, 0.9875, 0.98125, 0.975, 0.909375, 0.725, 0.421875, 0.0",
+    "0.85, 0.7250, 0.4219, 0.0"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "SaveVideo",
+   "pos": [
+    320,
+    120
+   ],
+   "size": [
+    520,
+    480
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "video",
+     "type": "VIDEO",
+     "link": 2
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveVideo"
+   },
+   "widgets_values": [
+    "video/Verboa",
+    "auto",
+    "auto"
+   ]
+  },
+  {
+   "id": 4,
+   "type": "VerboaFrameSheet",
+   "pos": [
+    320,
+    660
+   ],
+   "size": [
+    330,
+    110
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "frames",
+     "type": "IMAGE",
+     "link": 3
+    }
+   ],
+   "outputs": [
+    {
+     "name": "sheet",
+     "type": "IMAGE",
+     "links": [
+      4
+     ],
+     "slot_index": 0
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "VerboaFrameSheet"
+   },
+   "widgets_values": [
+    5,
+    360
+   ]
+  },
+  {
+   "id": 5,
+   "type": "PreviewImage",
+   "pos": [
+    690,
+    660
+   ],
+   "size": [
+    560,
+    220
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 4
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   },
+   "widgets_values": []
+  }
+ ],
+ "links": [
+  [
+   1,
+   1,
+   0,
+   2,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   2,
+   0,
+   3,
+   0,
+   "VIDEO"
+  ],
+  [
+   3,
+   2,
+   1,
+   4,
+   0,
+   "IMAGE"
+  ],
+  [
+   4,
+   4,
+   0,
+   5,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.6,
+   "offset": [
+    700,
+    200
+   ]
+  },
+  "frontendVersion": "1.52.7"
+ },
+ "version": 0.4
+}

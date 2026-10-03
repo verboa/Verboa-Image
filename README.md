@@ -12,7 +12,7 @@ Verboa Image 1.0 is an 8B photorealistic text-to-image model for adults. It is a
 captioned images, with [ERNIE-Image-Turbo](https://huggingface.co/baidu/ERNIE-Image-Turbo)'s few-step ability
 transplanted onto it. **It finishes an image in 8 steps.**
 
-This repository holds the small files: the ComfyUI workflows, the Prompt Writer's ComfyUI node, an inference script,
+This repository holds the small files: the ComfyUI workflows, the Prompt Writer's ComfyUI node, the Video node, an inference script,
 the license and how to report a problem. The weights, the full model card, the sample images and the safety report are on
 [Hugging Face](https://huggingface.co/verboa/Verboa-Image-1.0).
 
@@ -23,6 +23,7 @@ the license and how to report a problem. The weights, the full model card, the s
 
 - **September 2026:** Verboa Image 1.0 released, in every format from fp32 to 4-bit.
 - **September 2026:** [Verboa Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer), a small model that writes prompts for Verboa Image in ComfyUI.
+- **October 2026:** [Verboa Video](ComfyUI-Verboa-Video/), a ComfyUI node that turns a picture into a video with sound (LTX-2.5): the video stage of our own pipeline.
 
 ## Models
 
@@ -79,6 +80,16 @@ has three modes: **Let Me Choose** (nine fields such as people, age, place and l
    [`workflows/verboa-image-1.0-mac-writer.json`](workflows/verboa-image-1.0-mac-writer.json) (Mac).
 
 Each run writes a new prompt and renders it. It needs ComfyUI 0.19.0 or newer. The below prompts are SFW because GitHub wouldn't allow NSFW, go to HF if you want to see that.
+
+### Verboa Video (ComfyUI)
+
+[Verboa Video](ComfyUI-Verboa-Video/) turns a picture into a video with sound, with [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5): one node, the whole
+two-stage pipeline. Use a Verboa Image result as the first frame, or any picture.
+
+1. Copy the `ComfyUI-Verboa-Video` folder into `ComfyUI/custom_nodes/` (or unzip the
+   [release](https://github.com/verboa/Verboa-Image/releases/tag/comfyui-verboa-video-1.0) there) and restart ComfyUI.
+2. Put the five LTX-2.5 files listed in the [folder's README](ComfyUI-Verboa-Video/README.md) in their `models/` folders.
+3. Load [`ComfyUI-Verboa-Video/workflows/verboa-video-i2v.json`](ComfyUI-Verboa-Video/workflows/verboa-video-i2v.json).
 
 ### diffusers
 
