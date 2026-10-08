@@ -12,7 +12,7 @@ Verboa Image 1.0 is an 8B photorealistic text-to-image model for adults. It is a
 captioned images, with [ERNIE-Image-Turbo](https://huggingface.co/baidu/ERNIE-Image-Turbo)'s few-step ability
 transplanted onto it. **It finishes an image in 8 steps.**
 
-This repository holds the small files: the ComfyUI workflows, the Prompt Writer's ComfyUI node, the Video node, an inference script,
+This repository holds the small files: the ComfyUI workflows, the Prompt Writer's ComfyUI node, the MiniMax H3 video workflows, an inference script,
 the license and how to report a problem. The weights, the full model card, the sample images and the safety report are on
 [Hugging Face](https://huggingface.co/verboa/Verboa-Image-1.0).
 
@@ -23,7 +23,7 @@ the license and how to report a problem. The weights, the full model card, the s
 
 - **September 2026:** Verboa Image 1.0 released, in every format from fp32 to 4-bit.
 - **September 2026:** [Verboa Prompt Writer](https://huggingface.co/verboa/Verboa-Prompt-Writer), a small model that writes prompts for Verboa Image in ComfyUI.
-- **October 2026:** [Verboa Video](ComfyUI-Verboa-Video/), a ComfyUI node that turns a picture into a video with sound (LTX-2.5): the video stage of our own pipeline.
+- **October 2026:** [Verboa H3 Video](Verboa-H3-Video/), two ComfyUI workflows that turn a picture into a clip with sound with MiniMax H3: the video stage of our own pipeline.
 
 ## Models
 
@@ -72,7 +72,7 @@ node).
 has three modes: **Let Me Choose** (nine fields such as people, age, place and length, each one optional),
 **Surprise Me** (it picks for you) and **Write My Own** (your own prompt, through the same workflow).
 
-1. Download [ComfyUI-Verboa.zip](https://github.com/verboa/Verboa-Image/releases/latest/download/ComfyUI-Verboa.zip) and unzip it into `ComfyUI/custom_nodes/`, so you get
+1. Download [ComfyUI-Verboa.zip](https://github.com/verboa/Verboa-Image/releases/download/comfyui-verboa-1.0/ComfyUI-Verboa.zip) and unzip it into `ComfyUI/custom_nodes/`, so you get
    `custom_nodes/ComfyUI-Verboa/__init__.py`. Restart ComfyUI.
 2. Put `verboa-prompt-writer-fp8.safetensors` (NVIDIA) or `verboa-prompt-writer-bf16.safetensors` (Mac), from
    [Hugging Face](https://huggingface.co/verboa/Verboa-Prompt-Writer), in `models/text_encoders/`.
@@ -81,15 +81,16 @@ has three modes: **Let Me Choose** (nine fields such as people, age, place and l
 
 Each run writes a new prompt and renders it. It needs ComfyUI 0.19.0 or newer. The below prompts are SFW because GitHub wouldn't allow NSFW, go to HF if you want to see that.
 
-### Verboa Video (ComfyUI)
+### Video: MiniMax H3 (ComfyUI)
 
-[Verboa Video](ComfyUI-Verboa-Video/) turns a picture into a video with sound, with [LTX-2.5](https://huggingface.co/Lightricks/LTX-2.5): one node, the whole
-two-stage pipeline. Use a Verboa Image result as the first frame, or any picture.
+[Verboa H3 Video](Verboa-H3-Video/) turns a picture into a clip with sound with [MiniMax H3](https://huggingface.co/Comfy-Org/MiniMax-H3), in
+two workflows made of core ComfyUI nodes. Use a Verboa Image result as the first frame, or any picture.
 
-1. Copy the `ComfyUI-Verboa-Video` folder into `ComfyUI/custom_nodes/` (or unzip the
-   [release](https://github.com/verboa/Verboa-Image/releases/tag/comfyui-verboa-video-1.0) there) and restart ComfyUI.
-2. Put the five LTX-2.5 files listed in the [folder's README](ComfyUI-Verboa-Video/README.md) in their `models/` folders.
-3. Load [`ComfyUI-Verboa-Video/workflows/verboa-video-i2v.json`](ComfyUI-Verboa-Video/workflows/verboa-video-i2v.json).
+1. Put the five MiniMax H3 files listed in the [folder's README](Verboa-H3-Video/README.md) in their `models/` folders. They come under the
+   [MiniMax H3 Community License Agreement](https://huggingface.co/MiniMaxAI/MiniMax-H3/blob/main/LICENSE), which among other terms excludes
+   use in the United States, the European Union, the United Kingdom and South Korea: read it first.
+2. Load [`Verboa-H3-Video/workflows/verboa-h3-from-text.json`](Verboa-H3-Video/workflows/verboa-h3-from-text.json) (a Verboa Image still,
+   then the clip) or [`verboa-h3-i2v.json`](Verboa-H3-Video/workflows/verboa-h3-i2v.json) (any first frame).
 
 ### diffusers
 
